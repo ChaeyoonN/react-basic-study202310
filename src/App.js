@@ -1,6 +1,8 @@
 import React from 'react';
 import './App.css';
 import Expenses from './components/Expenses';
+import Hello from './components/Hello';
+import Card from './components/UI/Card';
 
 const App = () => {
   // const $h2 = React.createElement('h2', null, '반가워요~~');
@@ -28,6 +30,13 @@ const App = () => {
   return (
     <>
       <Expenses items={expenses} />
+      <Hello>
+        <ul>
+          <li>사과</li>
+          <li>포도</li>
+          <li>복숭아</li>
+        </ul>
+      </Hello>
     </>
   );
 };
