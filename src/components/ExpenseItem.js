@@ -1,12 +1,38 @@
 import React from 'react';
+import './ExpenseItem.css';
 
-const ExpenseItem = () => {
+const ExpenseItem = ({ title, price: propsPrice, date }) => {
+  // 함수형 컴포넌트
+  // console.log(props);
+
+  // const price = 99999;
+  // const expenseDate = date;
+  // const expenseTitle = title;
+  // const expensePrice = propsPrice;
+
+  // 1자리 숫자를 2자리수로 변환하는 함수
+  const make2digit = (text) => {
+    return text.toString().padStart(2, '0'); // 최대2자리고, 빈자리는0으로 채우기
+  };
+
+  // 날짜 포맷팅 변환 합수 정의
+  const makeFormattedDate = () => {
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const day = date.getDate();
+
+    return `${year}년 ${make2digit(month)}월 ${make2digit(day)}일`;
+  };
+
+  // 숫자를 원화표기법으로 바꾸기
+  const formattedPrice = new Intl.NumberFormat('ko-KR').format(price);
+
   return (
-    <div className="expense-item">
-      <div>2023년 10월 30일</div>
-      <div className="expense-item__description">
-        <h2>냠냠치킨</h2>
-        <div className="expense-item__price">19000원</div>
+    <div className='expense-item'>
+      <div>{makeFormattedDate()}</div>
+      <div className='expense-item__description'>
+        <h2>{title}</h2>
+        <div className='expense-item__price'>{formattedPrice}원</div>
       </div>
     </div>
   );
