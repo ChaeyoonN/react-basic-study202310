@@ -1,5 +1,7 @@
 import React from 'react';
+//css 로딩
 import './ExpenseItem.css';
+import ExpenseDate from './ExpenseDate';
 
 const ExpenseItem = ({ title, price: propsPrice, date }) => {
   // 함수형 컴포넌트
@@ -25,11 +27,12 @@ const ExpenseItem = ({ title, price: propsPrice, date }) => {
   };
 
   // 숫자를 원화표기법으로 바꾸기
-  const formattedPrice = new Intl.NumberFormat('ko-KR').format(price);
+  const formattedPrice = new Intl.NumberFormat('ko-KR').format(propsPrice);
 
   return (
     <div className='expense-item'>
-      <div>{makeFormattedDate()}</div>
+      <ExpenseDate date={date} />
+
       <div className='expense-item__description'>
         <h2>{title}</h2>
         <div className='expense-item__price'>{formattedPrice}원</div>
