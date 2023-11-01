@@ -27,6 +27,8 @@ const App = () => {
     },
   ];
 
+  console.log('앱 실행!');
+
   return (
     <>
       <Expenses items={expenses} />
