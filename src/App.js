@@ -1,8 +1,9 @@
 import React from 'react';
 import './App.css';
-import Expenses from './components/Expenses';
+import Expenses from './components/Expenses/Expenses';
 import Hello from './components/Hello';
 import Card from './components/UI/Card';
+import NewExpense from './components/NewExpense/NewExpense';
 
 const App = () => {
   // const $h2 = React.createElement('h2', null, '반가워요~~');
@@ -29,16 +30,17 @@ const App = () => {
 
   console.log('앱 실행!');
 
+  //ExpenseForm에게 내려보낼 함수
+  const addExpenseHandler = (newExpense) => {
+    //매개변수명은 자유.
+    console.log('App 컴포넌트에서 응답함!');
+    console.log(newExpense);
+  };
+
   return (
     <>
+      <NewExpense onAddExpense={addExpenseHandler} />
       <Expenses items={expenses} />
-      <Hello>
-        <ul>
-          <li>사과</li>
-          <li>포도</li>
-          <li>복숭아</li>
-        </ul>
-      </Hello>
     </>
   );
 };
