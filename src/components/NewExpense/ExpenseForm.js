@@ -25,14 +25,14 @@ const ExpenseForm = ({ onSaveExpense, onToggle }) => {
   const priceChangHandler = (e) => {
     setUserInput({
       ...userInput,
-      price: e.target.value,
+      price: e.target.value, // 문자열
     });
   };
 
   const dateChangeHandler = (e) => {
     setUserInput({
       ...userInput,
-      date: e.target.value,
+      date: e.target.value, // 문자열
     });
   };
 
@@ -42,8 +42,8 @@ const ExpenseForm = ({ onSaveExpense, onToggle }) => {
     const newExpense = {
       id: Math.random(),
       title: userInput.title,
-      price: userInput.price,
-      date: new Date(userInput.date),
+      price: +userInput.price, //Number()또는 + 붙여서 정수화
+      date: new Date(userInput.date), //날짜로 변환
     };
     console.log('submit 버튼을 누름!');
     console.log(newExpense);
