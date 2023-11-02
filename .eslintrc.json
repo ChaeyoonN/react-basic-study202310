@@ -20,6 +20,8 @@
     "spaced-comment": "off",
     "react/prop-types": "off",
     "object-curly-spacing": "off",
-    "prefer-const": "warn"
+    "prefer-const": "warn",
+    "react/jsx-key": "off",
+    "indent": "off"
   }
 }
