@@ -16,7 +16,7 @@ const Chart = ({ dataPoints }) => {
     (a, b) => a + b,
     // console.log(`a: ${a}, b: ${b}`);
     0
-  ); // 0: 초기값
+  ); // 0: 초기인덱스값
 
   // 그 중에 제일 지출이 높은 값
   const maximumValue = Math.max(...dataPointValues);
