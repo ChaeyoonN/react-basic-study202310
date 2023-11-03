@@ -5,13 +5,23 @@ import Button from '../UI/Button/Button';
 const CourseInput = ({ onAdd }) => {
   const [enteredText, setEnteredText] = useState('');
 
+  //입력값 검증 상태변수
+  const [isValid, setIsValid] = useState(true);
+
   const textChangeHandler = (e) => {
+    if (e.target.value.trim().length > 0) {
+      setIsValid(true);
+    }
+    // console.log(enteredText);
     // console.log(e.target.value); // 입력한 글
     setEnteredText(e.target.value);
   };
   const formSubmitHandler = (e) => {
     e.preventDefault();
-    console.log(enteredText);
+    if (enteredText.trim().length == 0) {
+      setIsValid(false);
+      return;
+    }
 
     onAdd(enteredText); //부모(App.js)에게 전달.
 
@@ -20,9 +30,13 @@ const CourseInput = ({ onAdd }) => {
 
   return (
     <form onSubmit={formSubmitHandler}>
-      <div className='form-control'>
+      <div className={`form-control ${!isValid ? 'invalid' : ''}`}>
         <label>나의 목표</label>
         <input
+          //   style={{
+          //     background: isValid ? 'transparent' : 'salmon',
+          //     borderColor: isValid ? 'black' : 'red',
+          //   }}
           type='text'
           onChange={textChangeHandler}
           value={enteredText}
