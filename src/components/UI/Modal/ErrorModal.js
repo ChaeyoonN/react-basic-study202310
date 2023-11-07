@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import Button from '../Button/Button';
 import Card from '../Card';
 import styles from './ErrorModal.module.css'; // styles라는 이름으로 임포트
+import Portal from '../Portal/Portal';
 
 const Backdrop = ({ onConfirm }) => {
   return (
@@ -33,19 +34,17 @@ const ModalOverlay = ({ title, message, onConfirm }) => {
 const ErrorModal = ({ title, message, onConfirm }) => {
   return (
     <>
-      {ReactDOM.createPortal(
+      <Portal destId={'backdrop-root'}>
         <Backdrop onConfirm={onConfirm} />,
-        document.getElementById('backdrop-root')
-      )}
+      </Portal>
 
-      {ReactDOM.createPortal(
+      <Portal destId={'overlay-root'}>
         <ModalOverlay
           title={title}
           message={message}
           onConfirm={onConfirm}
-        />,
-        document.getElementById('overlay-root')
-      )}
+        />
+      </Portal>
     </>
   );
 };
