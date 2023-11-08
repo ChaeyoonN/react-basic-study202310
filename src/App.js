@@ -42,9 +42,10 @@ const App = () => {
     <AuthContext.Provider
       value={{
         isLoggedIn: isLoggedIn, // 키: 상태변수실제값 ->이 태그 안의 컨슈머에게 전달
+        onLogout: logoutHandler,
       }}
     >
-      <MainHeader onLogout={logoutHandler} />
+      <MainHeader />
       <main>
         {isLoggedIn && <Home />}
         {!isLoggedIn && <Login onLogin={loginHandler} />}
