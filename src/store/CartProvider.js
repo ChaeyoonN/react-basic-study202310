@@ -10,21 +10,65 @@ const defaultState = {
 // action: 어떤 업데이트를 하는지에 대한 정보와 필요값들이 들어있음.
 const cartReducer = (state, action) => {
   if (action.type === 'ADD') {
-    const updatedItem = [...state.items, action.item];
-    console.log(updatedItem);
+    // 신규 아이템
+    const newCartItem = action.item;
+
+    // 기존 장바구니에 등록된 메뉴인지 아닌지에 따라 처리를 다르게 해야 할 것 같다.
+    const index = state.items.findIndex((item) => item.id === newCartItem.id);
+    //조건에 맞는 index 알려주는 함수: findIndex()
+
+    // 기존 아이템
+    const existingItems = [...state.items]; // 기존 배열을 복사
+    const prevCartItem = existingItems[index]; // 위에서 찾은 인덱스로 요소를 하나만 지목.
+
+    let updatedItem;
+
+    if (index === -1) {
+      //신규 아이템
+      updatedItem = [...state.items, newCartItem];
+    } else {
+      // 기존 아이템 -> 수량을 1 올려주면 되겠다.
+      // prevCartItem.amount++; -> 바깥 화면에서는 상품이 꼭 하나씩만 올라가는 것은 아님!
+      prevCartItem.amount += newCartItem.amount; // 복사된 아이템의 수량을 늘려줌.
+      updatedItem = [...existingItems]; // 새롭게 복사 배열을 갱신.
+    }
 
     const updatedPrice =
-      state.totalPrice + action.item.price * action.item.amount;
+      state.totalPrice + newCartItem.price * newCartItem.amount;
 
     return {
       items: updatedItem,
       totalPrice: updatedPrice,
     }; // 이 액션에 대한 업데이트된 새로운 상태 반환.
+    //
   } else if (action.type === 'REMOVE') {
-    const removedItems = state.items.filter((item) => item.id !== action.id);
-    // filter(): 조건에 일치하는 애들만 새로운 배열로 만들어 반환
+    // 기존 배열을 복사
+    const existingItems = [...state.items];
+
+    //지금 제거 대상의 인덱스를 찾자.
+    const index = existingItems.findIndex((item) => item.id === action.id);
+
+    //제거대상 아이템을 가져옴.
+    const delTargetItem = existingItems[index];
+
+    // 총액 계산
+    const updatedPrice = state.totalPrice - delTargetItem.price;
+
+    // 업데이트 전의 수량이 1이라면 filter로 배열에서 아예 빼 버리는 것이 맞다.
+    // 근데, 1보다 크다면 filter로 제거하면 안되고,
+    // 기존 배열에서 수량만 1 내린 채로 업데이트 해야 함!
+    let removedItems;
+    if (delTargetItem.amount === 1) {
+      removedItems = state.items.filter((item) => item.id !== action.id);
+      // filter(): 조건에 일치하는 애들만 새로운 배열로 만들어 반환
+    } else {
+      delTargetItem.amount--;
+      removedItems = [...existingItems];
+    }
+
     return {
       items: removedItems,
+      totalPrice: updatedPrice,
     };
   }
 
