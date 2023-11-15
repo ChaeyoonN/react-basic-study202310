@@ -5,6 +5,7 @@ import React from 'react';
 
 const CartContext = React.createContext({
   items: [], // 장바구니에 담긴 항목 배열
+  totalPrice: 0, //주문총액
   addItem: (item) => {},
   removeItem: (id) => {},
 });
